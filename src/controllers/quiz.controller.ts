@@ -1,16 +1,14 @@
 import * as Express from "express";
 import { inject } from "inversify";
 import { controller, httpGet, response } from "inversify-express-utils";
-import { QuizRepository } from "../data/quiz.repository";
+import { LoadQuizzes } from "@/domain/use-cases/quizzes";
 
-@controller("")
+@controller("/quizzes")
 export class QuizController {
-  constructor(
-    @inject("QuizRepository") private quizRepository: QuizRepository
-  ) {}
+  constructor(@inject("LoadQuizzes") private loadQuizzes: LoadQuizzes) {}
 
-  @httpGet("/quizzes")
+  @httpGet("")
   async index(@response() res: Express.Response) {
-    return res.json(await this.quizRepository.list());
+    return res.json(await this.loadQuizzes.execute().catch(() => []));
   }
 }

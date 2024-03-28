@@ -2,8 +2,12 @@
 import "reflect-metadata";
 
 // Express
-import express from "express";
 import path from "path";
+import express from "express";
+import cors from "cors";
+
+// Prisma
+import { prisma } from "./infra/prisma";
 
 // IoC Container
 import { Container } from "inversify";
@@ -12,7 +16,6 @@ import { providers } from "./providers";
 
 // Controllers
 import "./controllers";
-import { prisma } from "./infra/prisma";
 
 // App Setup
 const container = new Container();
@@ -21,6 +24,7 @@ providers.forEach((provider) => provider(container));
 
 server.setConfig((app) => {
   app.use(
+    cors(),
     express.static(path.join(__dirname, "../public")),
     express.urlencoded({ extended: true }),
     express.json()
