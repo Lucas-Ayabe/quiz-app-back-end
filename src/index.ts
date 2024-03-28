@@ -1,43 +1,12 @@
-// Decorators Support
+// IoC Decorator Metadata
 import "reflect-metadata";
-
-// Express
-import path from "path";
-import express from "express";
-import cors from "cors";
-
-// Prisma
-import { prisma } from "./infra/prisma";
-
-// IoC Container
-import { Container } from "inversify";
-import { InversifyExpressServer } from "inversify-express-utils";
-import { providers } from "./providers";
-
-// Controllers
-import "./controllers";
+import "./adapters/controllers";
 
 // App Setup
-const container = new Container();
-const server = new InversifyExpressServer(container);
-providers.forEach((provider) => provider(container));
+import main, { createServer } from "./main";
+import { prisma } from "@/adapters/data";
 
-server.setConfig((app) => {
-  app.use(
-    cors(),
-    express.static(path.join(__dirname, "../public")),
-    express.urlencoded({ extended: true }),
-    express.json()
-  );
-});
-
-async function main() {
-  server
-    .build()
-    .listen(3000, () => console.log("Listening in http://localhost:3000"));
-}
-
-main()
+main(createServer())
   .then(async () => {
     await prisma.$disconnect();
   })

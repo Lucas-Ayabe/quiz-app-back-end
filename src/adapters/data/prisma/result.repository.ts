@@ -1,6 +1,6 @@
 import { inject, injectable } from "inversify";
 import { PrismaClient } from "@prisma/client";
-import type { Result } from "../../domain";
+import type { Result } from "@/domain";
 
 @injectable()
 export class PrismaResultRepository {

@@ -1,6 +1,7 @@
 import { inject, injectable } from "inversify";
-import type { Quiz } from "../../domain";
 import { PrismaClient } from "@prisma/client";
+
+import type { Quiz } from "@/domain";
 
 @injectable()
 export class PrismaQuizRepository {

@@ -1,7 +1,12 @@
 import { Container } from "inversify";
 import { PrismaClient } from "@prisma/client";
-import { prisma } from "@/infra/prisma";
-import { PrismaQuizRepository, PrismaResultRepository } from "@/data/prisma";
+
+import {
+  prisma,
+  PrismaQuizRepository,
+  PrismaResultRepository,
+} from "@/adapters/data/prisma";
+
 import { QuizRepository, ResultRepository } from "@/domain/ports";
 import { LoadQuizzes, RegisterResult } from "@/domain/use-cases";
 
