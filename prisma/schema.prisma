@@ -1,0 +1,52 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Option {
+  id         Int      @id @default(autoincrement())
+  content    String   @db.Text
+  question   Question @relation(name: "question_options", fields: [questionId], references: [id])
+  questionId Int
+
+  answerForQuestionId Int?      @unique
+  answerFor           Question? @relation(name: "question_asnwer", fields: [answerForQuestionId], references: [id])
+}
+
+model Question {
+  id       Int    @id @default(autoincrement())
+  question String @db.Text
+
+  quiz   Quiz @relation(fields: [quizId], references: [id])
+  quizId Int
+
+  options Option[] @relation(name: "question_options")
+  answer  Option?  @relation(name: "question_asnwer")
+}
+
+model Quiz {
+  id        Int        @id @default(autoincrement())
+  title     String     @db.VarChar(255)
+  icon      String     @db.VarChar(255)
+  questions Question[]
+  Result    Result[]
+}
+
+model Result {
+  id Int @id @default(autoincrement())
+
+  quiz   Quiz @relation(fields: [quizId], references: [id])
+  quizId Int
+
+  score Int
+}
