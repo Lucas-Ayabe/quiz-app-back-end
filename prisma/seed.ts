@@ -6,7 +6,7 @@ async function memorylist() {
   return [
     {
       title: "HTML",
-      icon: "./assets/images/icon-html.svg",
+      icon: "icon-html.svg",
       questions: [
         {
           question: "What does HTML stand for?",
@@ -91,7 +91,7 @@ async function memorylist() {
     },
     {
       title: "CSS",
-      icon: "./assets/images/icon-css.svg",
+      icon: "icon-css.svg",
       questions: [
         {
           question: "What does CSS stand for?",
@@ -170,7 +170,7 @@ async function memorylist() {
     },
     {
       title: "JavaScript",
-      icon: "./assets/images/icon-js.svg",
+      icon: "icon-js.svg",
       questions: [
         {
           question:
@@ -269,7 +269,7 @@ async function memorylist() {
     },
     {
       title: "Accessibility",
-      icon: "./assets/images/icon-accessibility.svg",
+      icon: "icon-accessibility.svg",
       questions: [
         {
           question: "What does 'WCAG' stand for?",

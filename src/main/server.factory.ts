@@ -8,7 +8,7 @@ import { Container } from "inversify";
 import { InversifyExpressServer } from "inversify-express-utils";
 import { providers } from "@/main/providers";
 
-export const createServer = (): InversifyExpressServer => {
+export const createServer = () => {
   // App Setup
   const container = new Container();
   const server = new InversifyExpressServer(container);
@@ -17,11 +17,11 @@ export const createServer = (): InversifyExpressServer => {
   server.setConfig((app) => {
     app.use(
       cors(),
-      express.static(path.join(__dirname, "../public")),
+      express.static(path.join(__dirname, "../../public")),
       express.urlencoded({ extended: true }),
       express.json()
     );
   });
 
-  return server;
+  return { server, container };
 };
